@@ -46,4 +46,12 @@ public class Contact {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    @Override
+    public String toString() {
+        return "Name: " + name +
+                ", Phone: " + phone +
+                ", Address: " + address +
+                ", Email: " + email;
+    }
 }
