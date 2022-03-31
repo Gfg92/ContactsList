@@ -10,6 +10,8 @@ public class Main {
 
         contactsList.showContacts();
 
+        contactsList.clearContacts();
+        contactsList.showContacts();
 
     }
 }
