@@ -27,7 +27,9 @@ public class ContactsList {
         contacts.add(new Contact("Fran", "645372876", "Calle Menor", "asdfa@ieselcaminas.org"));
     }
 
-
+    public void clearContacts(){
+        contacts.clear();
+    }
 
 
 }
