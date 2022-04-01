@@ -7,6 +7,7 @@ public class Main {
         contactsList.add(contact1);
         contactsList.add(contact2);
         contactsList.remove(contact1);
+        contact2.setName("Juan");
 
         contactsList.showContacts();
 
