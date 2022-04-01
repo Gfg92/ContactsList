@@ -1,14 +1,26 @@
 import java.util.*;
 
 public class ContactsList {
-    private List<Contact> contacts = new ArrayList<>();
+    private final List<Contact> contacts = new ArrayList<>();
 
     public ContactsList() {
         loadContacts();
     }
+    private boolean isRegistered(Contact contact){
+        boolean registered = false;
+        for (Contact c : contacts) {
+            if (contact.getPhone().equals(c.getPhone())) {
+                registered = true;
+                break;
+            }
+        }
+        return registered;
+    }
 
     public void add(Contact contact) {
-        contacts.add(contact);
+        if (!isRegistered(contact)) {
+            contacts.add(contact);
+        }
     }
 
     public void remove(Contact contact) {
@@ -16,8 +28,9 @@ public class ContactsList {
     }
 
     public void showContacts() {
+        Collections.sort(contacts);
         for (Contact contact : contacts) {
-            System.out.println(contact.toString());
+            System.out.println(contact);
         }
     }
 
@@ -27,7 +40,7 @@ public class ContactsList {
         contacts.add(new Contact("Fran", "645372876", "Calle Menor", "asdfa@ieselcaminas.org"));
     }
 
-    public void clearContacts(){
+    public void clearContacts() {
         contacts.clear();
     }
 

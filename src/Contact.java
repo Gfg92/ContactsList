@@ -1,4 +1,4 @@
-public class Contact {
+public class Contact implements Comparable<Contact>{
     private String name;
     private String phone; // Tipo String porque puede aceptar el prefijo (+34)
     private String address;
@@ -53,5 +53,10 @@ public class Contact {
                 ", Phone: " + phone +
                 ", Address: " + address +
                 ", Email: " + email;
+    }
+
+    @Override
+    public int compareTo(Contact o) {
+        return name.compareTo(o.name);
     }
 }
