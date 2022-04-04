@@ -43,6 +43,4 @@ public class ContactsList {
     public void clearContacts() {
         contacts.clear();
     }
-
-
 }
