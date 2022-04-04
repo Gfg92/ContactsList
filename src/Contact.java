@@ -48,6 +48,11 @@ public class Contact implements Comparable<Contact>{
     }
 
     @Override
+    public int compareTo(Contact o) {
+        return name.compareTo(o.name);
+    }
+
+    @Override
     public String toString() {
         return "Name: " + name +
                 ", Phone: " + phone +
@@ -55,8 +60,5 @@ public class Contact implements Comparable<Contact>{
                 ", Email: " + email;
     }
 
-    @Override
-    public int compareTo(Contact o) {
-        return name.compareTo(o.name);
-    }
+
 }
