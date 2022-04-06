@@ -6,6 +6,7 @@ public class ContactsList {
     public ContactsList() {
         loadContacts();
     }
+
     private boolean isRegistered(Contact contact){
         boolean registered = false;
         for (Contact c : contacts) {
