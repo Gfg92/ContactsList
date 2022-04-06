@@ -52,7 +52,6 @@ public class Main {
                     System.out.println("Introduce un valor");
                     valor = sc.nextInt();
 
-                    contactsList.set(valor-1,)
 
                     break;
                 case 5:
