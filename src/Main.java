@@ -26,9 +26,16 @@ public class Main {
                     contactsList.add(newContact);
                     break;
                 case 2:
+                    contactsList.showContacts();
                     System.out.println("Introduce el id que desea borrar");
                     id = sc.nextInt();
-                    contactsList.remove(id);
+                    Contact contact = contactsList.getById(id);
+                    if(contact == null){
+                        System.out.println("El id introducido no es valido");
+                    }else {
+                        System.out.println("El contacto eliminado es: " + contact);
+                        contactsList.remove(contact);
+                    }
                     break;
                 case 3:
                     System.out.println("¿Quieres eliminar todos los contactos? (S/N)");
@@ -74,6 +81,7 @@ public class Main {
         String email = sc.next();
         return new Contact(id, nombre, telefono, direccion, email);
     }
+
 
 
 }

@@ -7,7 +7,7 @@ public class ContactsList {
         loadContacts();
     }
 
-    private boolean isRegistered(Contact contact){
+    private boolean isRegistered(Contact contact) {
         boolean registered = false;
         for (Contact c : contacts) {
             if (contact.getPhone().equals(c.getPhone())) {
@@ -24,8 +24,22 @@ public class ContactsList {
         }
     }
 
-    public void remove(int id) {
-        contacts.remove(index);
+    public boolean remove(Contact contact) {
+        // Encontrar la posición del contacto a borrar
+        int position = -1;
+        for (int i = 0; i < contacts.size(); i++) {
+            Contact c = contacts.get(i);
+            if (c.getId() == contact.getId()) {
+                position = i;
+                break;
+            }
+        }
+        // Comprobar si se ha encontrado el contacto
+        if (position == -1) {
+            return false;
+        }
+        contacts.remove(contact);
+        return true;
     }
 
     public void showContacts() {
@@ -36,40 +50,40 @@ public class ContactsList {
     }
 
     private void loadContacts() {
-        contacts.add(new Contact(1,"Paco", "678549384", "Calle Juan", "asñl@ieselcaminas.org"));
-        contacts.add(new Contact(2,"Juan", "678549376", "Calle Juan", "uqwoyr@ieselcaminas.org"));
-        contacts.add(new Contact(3,"Fran", "645372876", "Calle Menor", "asdfa@ieselcaminas.org"));
+        contacts.add(new Contact(1, "Paco", "678549384", "Calle Juan", "asñl@ieselcaminas.org"));
+        contacts.add(new Contact(2, "Juan", "678549376", "Calle Juan", "uqwoyr@ieselcaminas.org"));
+        contacts.add(new Contact(3, "Fran", "645372876", "Calle Menor", "asdfa@ieselcaminas.org"));
     }
 
     public void clearContacts() {
         contacts.clear();
     }
-    public boolean update(Contact contact){
+
+    public boolean update(Contact contact) {
         // Encontrar la posición del contacto a modificar
         int position = -1;
         for (int i = 0; i < contacts.size(); i++) {
             Contact c = contacts.get(i);
-            if (c.getId() == contact.getId()){
+            if (c.getId() == contact.getId()) {
                 position = i;
                 break;
             }
         }
-
         // Comprobar si se ha encontrado el contacto
-        if (position == -1){
+        if (position == -1) {
             return false;
         }
-
         contacts.set(position, contact);
         return true;
-
     }
+
     public Contact getById(int id) {
         for (Contact c : contacts) {
-            if(id == c.getId()){
+            if (id == c.getId()) {
                 return c;
             }
         }
         return null;
     }
+
 }
