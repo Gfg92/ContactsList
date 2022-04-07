@@ -1,16 +1,20 @@
-public class Contact implements Comparable<Contact>{
+public class Contact implements Comparable<Contact> {
+    private int id;
     private String name;
     private String phone; // Tipo String porque puede aceptar el prefijo (+34)
     private String address;
     private String email;
 
-    public Contact(String name, String phone, String address, String email) {
+    public Contact(int id, String name, String phone, String address, String email) {
+        this.id = id;
         this.name = name;
         this.phone = phone;
         this.address = address;
         this.email = email;
     }
-    public Contact(String name, String phone) {
+
+    public Contact(int id, String name, String phone) {
+        this.id = id;
         this.name = name;
         this.phone = phone;
     }
@@ -61,4 +65,7 @@ public class Contact implements Comparable<Contact>{
     }
 
 
+    public int getId() {
+        return id;
+    }
 }
