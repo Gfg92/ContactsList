@@ -1,3 +1,5 @@
+import jdk.swing.interop.SwingInterOpUtils;
+
 import java.util.Scanner;
 
 public class Main {
@@ -24,6 +26,7 @@ public class Main {
                     int id = sc.nextInt();
                     Contact newContact = createContact(id, sc);
                     contactsList.add(newContact);
+                    System.out.println("AÑADIDO CON EXITO");
                     break;
                 case 2:
                     contactsList.showContacts();
@@ -31,18 +34,20 @@ public class Main {
                     id = sc.nextInt();
                     Contact contact = contactsList.getById(id);
                     if(contact == null){
-                        System.out.println("El id introducido no es valido");
+                        System.out.println("EL ID INTRODUCIDO NO ES VALIDO");
                     }else {
                         System.out.println("El contacto eliminado es: " + contact);
                         contactsList.remove(contact);
+                        System.out.println("ELIMINADO CON EXITO");
                     }
+
                     break;
                 case 3:
                     System.out.println("¿Quieres eliminar todos los contactos? (S/N)");
                     char elige = sc.next().charAt(0);
                     if (elige == 'S') {
                         contactsList.clearContacts();
-                        System.out.println("Has eliminado todos los contactos");
+                        System.out.println("HAS ELIMINADO TODOS LOS CONTACTOS CON EXITO");
                     }
                     break;
                 case 4:
@@ -56,13 +61,14 @@ public class Main {
                         System.out.println("El contacto a modificar es: " + c);
                         Contact updateContact = createContact(id, sc);
                         contactsList.update(updateContact);
+                        System.out.println("HAS MODIFICADO CON EXITO");
                     }
                     break;
                 case 5:
                     contactsList.showContacts();
                     break;
                 case 6:
-                    System.out.println("Fin de programa");
+                    System.out.println("FIN DE PROGRAMA");
                     break;
 
             }
