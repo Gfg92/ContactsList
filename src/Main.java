@@ -1,11 +1,9 @@
-import jdk.swing.interop.SwingInterOpUtils;
-
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        ContactsList contactsList = new ContactsList();
+        IContactsList contactsList = new ContactsListHardcoded();
 
         int opcion;
         do {

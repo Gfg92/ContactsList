@@ -1,9 +1,9 @@
 import java.util.*;
 
-public class ContactsList {
+public class ContactsListHardcoded implements IContactsList {
     private final List<Contact> contacts = new ArrayList<>();
 
-    public ContactsList() {
+    public ContactsListHardcoded() {
         loadContacts();
     }
 
@@ -18,12 +18,14 @@ public class ContactsList {
         return registered;
     }
 
+    @Override
     public void add(Contact contact) {
         if (!isRegistered(contact)) {
             contacts.add(contact);
         }
     }
 
+    @Override
     public boolean remove(Contact contact) {
         // Encontrar la posición del contacto a borrar
         int position = -1;
@@ -42,6 +44,7 @@ public class ContactsList {
         return true;
     }
 
+    @Override
     public void showContacts() {
         Collections.sort(contacts);
         for (Contact contact : contacts) {
@@ -55,10 +58,12 @@ public class ContactsList {
         contacts.add(new Contact(3, "Fran", "645372876", "Calle Menor", "asdfa@ieselcaminas.org"));
     }
 
+    @Override
     public void clearContacts() {
         contacts.clear();
     }
 
+    @Override
     public boolean update(Contact contact) {
         // Encontrar la posición del contacto a modificar
         int position = -1;
@@ -77,6 +82,7 @@ public class ContactsList {
         return true;
     }
 
+    @Override
     public Contact getById(int id) {
         for (Contact c : contacts) {
             if (id == c.getId()) {
