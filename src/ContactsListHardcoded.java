@@ -7,20 +7,9 @@ public class ContactsListHardcoded implements IContactsList {
         loadContacts();
     }
 
-    private boolean isRegistered(Contact contact) {
-        boolean registered = false;
-        for (Contact c : contacts) {
-            if (contact.getPhone().equals(c.getPhone())) {
-                registered = true;
-                break;
-            }
-        }
-        return registered;
-    }
-
     @Override
     public void add(Contact contact) {
-        if (!isRegistered(contact)) {
+        if (getById(contact.getId()) == null) {
             contacts.add(contact);
         }
     }

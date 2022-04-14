@@ -1,41 +1,47 @@
 import java.io.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class ContactsListFile implements IContactsList {
+
     private final File file;
+    private final List<Contact> contacts;
 
     public ContactsListFile(File file) {
         this.file = file;
+        contacts = readContactsList();
     }
 
-    private boolean isRegistered(Contact contact) {
+    private List<Contact> readContactsList() {
+        List<Contact> contacts = new ArrayList<>();
         try {
             FileInputStream input = new FileInputStream(file);
+            ObjectInputStream objectInput = new ObjectInputStream(input);
+            //noinspection unchecked
+            contacts = (List<Contact>) objectInput.readObject();
+            objectInput.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return contacts;
+    }
 
-            String text = "";
-            int c = input.read();
-            while (c != -1) {
-                text = text + (char) c;
-                c = input.read();
-            }
-
-            String[] lines = text.split("\n");
-            for (String line : lines) {
-                String[] contactFields = line.split("#");
-                Contact contact1 = new Contact(Integer.parseInt(contactFields[0]), contactFields[1], contactFields[2], contactFields[3], contactFields[4]);
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
+    private void storeContactsList() {
+        try {
+            ObjectOutputStream objectOut = new ObjectOutputStream(new FileOutputStream(file));
+            objectOut.writeObject(contacts);
+            objectOut.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
     }
 
     @Override
     public void add(Contact contact) {
-        try {
-            FileOutputStream out = new FileOutputStream(file);
-            out.
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+        if (getById(contact.getId()) == null) {
+            contacts.add(contact);
+            storeContactsList();
         }
     }
 
@@ -46,7 +52,10 @@ public class ContactsListFile implements IContactsList {
 
     @Override
     public void showContacts() {
-
+        Collections.sort(contacts);
+        for (Contact contact : contacts) {
+            System.out.println(contact);
+        }
     }
 
     @Override

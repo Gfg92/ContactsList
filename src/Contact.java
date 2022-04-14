@@ -1,4 +1,6 @@
-public class Contact implements Comparable<Contact> {
+import java.io.Serializable;
+
+public class Contact implements Comparable<Contact>, Serializable {
     private int id;
     private String name;
     private String phone; // Tipo String porque puede aceptar el prefijo (+34)
