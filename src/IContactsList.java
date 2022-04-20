@@ -1,7 +1,7 @@
 public interface IContactsList {
     void add(Contact contact);
 
-    boolean remove(Contact contact);
+    void remove(Contact contact);
 
     void showContacts();
 

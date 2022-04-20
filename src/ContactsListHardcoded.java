@@ -15,7 +15,7 @@ public class ContactsListHardcoded implements IContactsList {
     }
 
     @Override
-    public boolean remove(Contact contact) {
+    public void remove(Contact contact) {
         // Encontrar la posición del contacto a borrar
         int position = -1;
         for (int i = 0; i < contacts.size(); i++) {
@@ -27,10 +27,9 @@ public class ContactsListHardcoded implements IContactsList {
         }
         // Comprobar si se ha encontrado el contacto
         if (position == -1) {
-            return false;
+            return;
         }
         contacts.remove(contact);
-        return true;
     }
 
     @Override

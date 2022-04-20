@@ -29,7 +29,8 @@ public class ContactsListFile implements IContactsList {
 
     private void storeContactsList() {
         try {
-            ObjectOutputStream objectOut = new ObjectOutputStream(new FileOutputStream(file));
+            FileOutputStream output = new FileOutputStream(file);
+            ObjectOutputStream objectOut = new ObjectOutputStream(output);
             objectOut.writeObject(contacts);
             objectOut.close();
         } catch (Exception ex) {
@@ -46,8 +47,9 @@ public class ContactsListFile implements IContactsList {
     }
 
     @Override
-    public boolean remove(Contact contact) {
-        return false;
+    public void remove(Contact contact) {
+        contacts.remove(contact);
+        storeContactsList();
     }
 
     @Override
@@ -60,16 +62,29 @@ public class ContactsListFile implements IContactsList {
 
     @Override
     public void clearContacts() {
-
+        contacts.clear();
+        storeContactsList();
     }
 
     @Override
     public boolean update(Contact contact) {
+        for (int i = 0; i < contacts.size(); i++) {
+            if (contacts.get(i).getId() == contact.getId()) {
+                contacts.set(i, contact);
+                storeContactsList();
+                return true;
+            }
+        }
         return false;
     }
 
     @Override
     public Contact getById(int id) {
+        for (Contact c : contacts) {
+            if(id == c.getId()){
+                return c;
+            }
+        }
         return null;
     }
 }
