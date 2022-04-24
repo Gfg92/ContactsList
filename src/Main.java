@@ -6,6 +6,7 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         //IContactsList contactsList = new ContactsListFile(new File("archivo.txt"));
         IContactsList contactsList = new ContactsListDb();
+
         int opcion;
         do {
             System.out.println("MENU DE OPCIONES");
