@@ -16,11 +16,16 @@ public class ContactsListFile implements IContactsList {
     private List<Contact> readContactsList() {
         List<Contact> contacts = new ArrayList<>();
         try {
-            FileInputStream input = new FileInputStream(file);
-            ObjectInputStream objectInput = new ObjectInputStream(input);
-            //noinspection unchecked
-            contacts = (List<Contact>) objectInput.readObject();
-            objectInput.close();
+            FileReader f = new FileReader(file);
+            BufferedReader reader = new BufferedReader(f);
+            String line = reader.readLine();
+            while (line != null) {
+                String[] fields = line.split(";");
+                Contact contact = new Contact(Integer.parseInt(fields[0]), fields[1], fields[2], fields[3], fields[4]);
+                contacts.add(contact);
+                line = reader.readLine();
+            }
+            reader.close();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -29,10 +34,13 @@ public class ContactsListFile implements IContactsList {
 
     private void storeContactsList() {
         try {
-            FileOutputStream output = new FileOutputStream(file);
-            ObjectOutputStream objectOut = new ObjectOutputStream(output);
-            objectOut.writeObject(contacts);
-            objectOut.close();
+            FileWriter f = new FileWriter(file);
+            BufferedWriter writer = new BufferedWriter(f);
+            for (Contact c : contacts) {
+                writer.write(c.getId() + ";" + c.getName() + ";" + c.getPhone() + ";" + c.getAddress() +
+                        ";" + c.getEmail() + "\n");
+            }
+            writer.close();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -81,7 +89,7 @@ public class ContactsListFile implements IContactsList {
     @Override
     public Contact getById(int id) {
         for (Contact c : contacts) {
-            if(id == c.getId()){
+            if (id == c.getId()) {
                 return c;
             }
         }
