@@ -4,10 +4,6 @@ import java.util.List;
 public class ContactsProviderHardcoded implements IContactsProvider {
     private final List<Contact> contacts = new ArrayList<>();
 
-    public ContactsProviderHardcoded() {
-        loadContacts();
-    }
-
     @Override
     public void add(Contact contact) {
         if (getById(contact.getId()) == null) {
@@ -33,7 +29,7 @@ public class ContactsProviderHardcoded implements IContactsProvider {
         contacts.remove(contact);
     }
 
-    public List<Contact> loadContacts() {
+    public List<Contact> loadContacts() throws LoadContactsException{
         return contacts;
     }
 

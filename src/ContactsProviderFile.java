@@ -47,6 +47,9 @@ public class ContactsProviderFile implements IContactsProvider {
 
     @Override
     public void add(Contact contact) {
+//        List<Contact> contacts = readContactsList();
+//        contacts.add(contact);
+//        saveContacts(contacts);
         if (getById(contact.getId()) == null) {
             contacts.add(contact);
             storeContactsList();

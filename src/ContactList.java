@@ -48,6 +48,10 @@ public class ContactList {
     }
 
     public void synchronizeFromProvider() {
-        contacts = provider.loadContacts();
+        try {
+            contacts = provider.loadContacts();
+        }catch (LoadContactsException lce){
+            System.err.println(lce.getMessage());
+        }
     }
 }
