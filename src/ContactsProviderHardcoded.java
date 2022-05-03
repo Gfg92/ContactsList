@@ -1,9 +1,10 @@
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
-public class ContactsListHardcoded implements IContactsList {
+public class ContactsProviderHardcoded implements IContactsProvider {
     private final List<Contact> contacts = new ArrayList<>();
 
-    public ContactsListHardcoded() {
+    public ContactsProviderHardcoded() {
         loadContacts();
     }
 
@@ -32,18 +33,8 @@ public class ContactsListHardcoded implements IContactsList {
         contacts.remove(contact);
     }
 
-    @Override
-    public void showContacts() {
-        Collections.sort(contacts);
-        for (Contact contact : contacts) {
-            System.out.println(contact);
-        }
-    }
-
-    private void loadContacts() {
-        contacts.add(new Contact(1, "Paco", "678549384", "Calle Juan", "asñl@ieselcaminas.org"));
-        contacts.add(new Contact(2, "Juan", "678549376", "Calle Juan", "uqwoyr@ieselcaminas.org"));
-        contacts.add(new Contact(3, "Fran", "645372876", "Calle Menor", "asdfa@ieselcaminas.org"));
+    public List<Contact> loadContacts() {
+        return contacts;
     }
 
     @Override
@@ -52,7 +43,7 @@ public class ContactsListHardcoded implements IContactsList {
     }
 
     @Override
-    public boolean update(Contact contact) {
+    public void update(Contact contact) {
         // Encontrar la posición del contacto a modificar
         int position = -1;
         for (int i = 0; i < contacts.size(); i++) {
@@ -62,12 +53,9 @@ public class ContactsListHardcoded implements IContactsList {
                 break;
             }
         }
-        // Comprobar si se ha encontrado el contacto
-        if (position == -1) {
-            return false;
+        if (position >= 0) {
+            contacts.set(position, contact);
         }
-        contacts.set(position, contact);
-        return true;
     }
 
     @Override

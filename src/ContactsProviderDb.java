@@ -1,10 +1,12 @@
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
-public class ContactsListDb implements IContactsList {
+public class ContactsProviderDb implements IContactsProvider {
 
     private Connection con = null;
 
-    public ContactsListDb() {
+    public ContactsProviderDb() {
 
         Statement st = null;
         String sentSQL = null;
@@ -94,14 +96,31 @@ public class ContactsListDb implements IContactsList {
         }
     }
 
+
     @Override
-    public void showContacts() {
+    public void clearContacts() {
+
+    }
+
+    @Override
+    public void update(Contact contact) {
+
+    }
+
+    @Override
+    public Contact getById(int id) {
+        return null;
+    }
+
+    @Override
+    public List<Contact> loadContacts() {
         Statement st = null;
         String select = "SELECT * FROM CONTACT";
+        List<Contact> contacts = new ArrayList<>();
         try {
             st = con.createStatement();
             ResultSet rs = st.executeQuery(select);
-            while(rs.next()){
+            while (rs.next()) {
                 Contact c = new Contact(
                         rs.getInt("id"),
                         rs.getString("name"),
@@ -109,7 +128,7 @@ public class ContactsListDb implements IContactsList {
                         rs.getString("address"),
                         rs.getString("email")
                 );
-                System.out.println(c);
+                contacts.add(c);
             }
         } catch (SQLException e) {
             System.out.println("Error " + e.getMessage());
@@ -123,20 +142,6 @@ public class ContactsListDb implements IContactsList {
                 System.out.println("No s'ha pogut tancar el Statement per alguna raó");
             }
         }
-    }
-
-    @Override
-    public void clearContacts() {
-
-    }
-
-    @Override
-    public boolean update(Contact contact) {
-        return false;
-    }
-
-    @Override
-    public Contact getById(int id) {
-        return null;
+        return contacts;
     }
 }

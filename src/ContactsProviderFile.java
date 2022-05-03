@@ -1,14 +1,13 @@
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
-public class ContactsListFile implements IContactsList {
+public class ContactsProviderFile implements IContactsProvider {
 
     private final File file;
     private final List<Contact> contacts;
 
-    public ContactsListFile(File file) {
+    public ContactsProviderFile(File file) {
         this.file = file;
         contacts = readContactsList();
     }
@@ -60,13 +59,6 @@ public class ContactsListFile implements IContactsList {
         storeContactsList();
     }
 
-    @Override
-    public void showContacts() {
-        Collections.sort(contacts);
-        for (Contact contact : contacts) {
-            System.out.println(contact);
-        }
-    }
 
     @Override
     public void clearContacts() {
@@ -75,15 +67,15 @@ public class ContactsListFile implements IContactsList {
     }
 
     @Override
-    public boolean update(Contact contact) {
+    public void update(Contact contact) {
         for (int i = 0; i < contacts.size(); i++) {
             if (contacts.get(i).getId() == contact.getId()) {
                 contacts.set(i, contact);
                 storeContactsList();
-                return true;
+                break;
             }
         }
-        return false;
+
     }
 
     @Override
@@ -94,5 +86,10 @@ public class ContactsListFile implements IContactsList {
             }
         }
         return null;
+    }
+
+    @Override
+    public List<Contact> loadContacts() {
+        return contacts;
     }
 }

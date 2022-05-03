@@ -4,8 +4,9 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        IContactsList contactsList = new ContactsListFile(new File("archivo.txt"));
-       // IContactsList contactsList = new ContactsListDb();
+        IContactsProvider provider = new ContactsProviderFile(new File("archivo.txt"));
+        ContactList contactsList = new ContactList(provider);
+
 
         int opcion;
         do {
@@ -33,9 +34,9 @@ public class Main {
                     System.out.println("Introduce el id que desea borrar");
                     id = sc.nextInt();
                     Contact contact = contactsList.getById(id);
-                    if(contact == null){
+                    if (contact == null) {
                         System.out.println("EL ID INTRODUCIDO NO ES VALIDO");
-                    }else {
+                    } else {
                         System.out.println("El contacto eliminado es: " + contact);
                         contactsList.remove(contact);
                         System.out.println("ELIMINADO CON EXITO");
@@ -55,9 +56,9 @@ public class Main {
                     System.out.println("Introduce el id a modificar");
                     id = sc.nextInt();
                     Contact c = contactsList.getById(id);
-                    if (c == null){
+                    if (c == null) {
                         System.out.println("El contacto no existe");
-                    }else {
+                    } else {
                         System.out.println("El contacto a modificar es: " + c);
                         Contact updateContact = createContact(id, sc);
                         contactsList.update(updateContact);
@@ -87,7 +88,6 @@ public class Main {
         String email = sc.next();
         return new Contact(id, nombre, telefono, direccion, email);
     }
-
 
 
 }

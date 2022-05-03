@@ -1,5 +1,3 @@
-import java.io.Serializable;
-
 public class Contact implements Comparable<Contact> {
     private int id;
     private String name;
