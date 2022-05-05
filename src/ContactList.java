@@ -12,6 +12,7 @@ public class ContactList {
         synchronizeFromProvider();
     }
 
+
     public void add(Contact contact) {
         provider.add(contact);
         synchronizeFromProvider();
@@ -50,7 +51,7 @@ public class ContactList {
     public void synchronizeFromProvider() {
         try {
             contacts = provider.loadContacts();
-        }catch (LoadContactsException lce){
+        }catch (ContactsException lce){
             System.err.println(lce.getMessage());
         }
     }

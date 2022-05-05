@@ -29,7 +29,7 @@ public class ContactsProviderHardcoded implements IContactsProvider {
         contacts.remove(contact);
     }
 
-    public List<Contact> loadContacts() throws LoadContactsException{
+    public List<Contact> loadContacts() throws ContactsException {
         return contacts;
     }
 

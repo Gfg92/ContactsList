@@ -11,5 +11,5 @@ public interface IContactsProvider {
 
     Contact getById(int id);
 
-    List<Contact> loadContacts() throws LoadContactsException;
+    List<Contact> loadContacts() throws ContactsException;
 }

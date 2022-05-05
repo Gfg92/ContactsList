@@ -1,18 +1,20 @@
 import java.io.*;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class ContactsProviderFile implements IContactsProvider {
 
     private final File file;
-    private final List<Contact> contacts;
+    //private final List<Contact> contacts;
+
 
     public ContactsProviderFile(File file) {
         this.file = file;
-        contacts = readContactsList();
+        // contacts = readContactsList();
     }
 
-    private List<Contact> readContactsList() {
+    private List<Contact> readContactsList() throws ContactsException {
         List<Contact> contacts = new ArrayList<>();
         try {
             FileReader f = new FileReader(file);
@@ -26,12 +28,12 @@ public class ContactsProviderFile implements IContactsProvider {
             }
             reader.close();
         } catch (Exception ex) {
-            ex.printStackTrace();
+            throw new ContactsException("Contacts cant be loaded");
         }
         return contacts;
     }
 
-    private void storeContactsList() {
+    private void storeContactsList(List<Contact> contacts) throws ContactsException {
         try {
             FileWriter f = new FileWriter(file);
             BufferedWriter writer = new BufferedWriter(f);
@@ -41,58 +43,82 @@ public class ContactsProviderFile implements IContactsProvider {
             }
             writer.close();
         } catch (Exception ex) {
-            ex.printStackTrace();
+            throw new ContactsException("Contacts cant be saved");
         }
     }
 
     @Override
     public void add(Contact contact) {
-//        List<Contact> contacts = readContactsList();
+        List<Contact> contacts = null;
+        try {
+            contacts = loadContacts();
+            //        List<Contact> contacts = readContactsList();
 //        contacts.add(contact);
 //        saveContacts(contacts);
-        if (getById(contact.getId()) == null) {
-            contacts.add(contact);
-            storeContactsList();
+            if (getById(contact.getId()) == null) {
+                contacts.add(contact);
+                storeContactsList(contacts);
+            }
+        } catch (ContactsException e) {
+            e.printStackTrace();
         }
     }
 
     @Override
     public void remove(Contact contact) {
-        contacts.remove(contact);
-        storeContactsList();
+        List<Contact> contacts = null;
+        try {
+            contacts = loadContacts();
+            contacts.remove(contact);
+            storeContactsList(contacts);
+        } catch (ContactsException e) {
+            e.printStackTrace();
+        }
     }
 
 
     @Override
-    public void clearContacts() {
-        contacts.clear();
-        storeContactsList();
+    public void clearContacts(){
+        try {
+            storeContactsList(new LinkedList<>());
+        } catch (ContactsException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void update(Contact contact) {
-        for (int i = 0; i < contacts.size(); i++) {
-            if (contacts.get(i).getId() == contact.getId()) {
-                contacts.set(i, contact);
-                storeContactsList();
-                break;
+        List<Contact> contacts = null;
+        try {
+            contacts = loadContacts();
+            for (int i = 0; i < contacts.size(); i++) {
+                if (contacts.get(i).getId() == contact.getId()) {
+                    contacts.set(i, contact);
+                    storeContactsList(contacts);
+                    break;
+                }
             }
+        } catch (ContactsException e) {
+            e.printStackTrace();
         }
-
     }
 
     @Override
     public Contact getById(int id) {
-        for (Contact c : contacts) {
-            if (id == c.getId()) {
-                return c;
+        try {
+            for (Contact c : loadContacts()) {
+                if (id == c.getId()) {
+                    return c;
+                }
             }
+        } catch (ContactsException e) {
+            e.printStackTrace();
         }
         return null;
     }
 
     @Override
-    public List<Contact> loadContacts() {
-        return contacts;
+    public List<Contact> loadContacts() throws ContactsException {
+        return readContactsList();
     }
 }
