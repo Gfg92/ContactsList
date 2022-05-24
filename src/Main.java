@@ -5,8 +5,10 @@ public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 //        IContactsProvider provider = new ContactsProviderFile(new File("archivo.txt"));
-        IContactsProvider provider = new SerializableContactsProvider();
+//        IContactsProvider provider = new SerializableContactsProvider();
+        IContactsProvider provider = new JsonContactsProvider();
         ContactList contactsList = new ContactList(provider);
+
 
         int opcion;
         do {
